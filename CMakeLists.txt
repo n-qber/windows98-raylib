@@ -6,7 +6,9 @@ set(CMAKE_C_STANDARD 99)
 find_package(raylib CONFIG REQUIRED)
 
 add_executable(cool_raylib main.c
-        window.c)
+        window.c
+        LL.h
+        LL.c)
 
 
 target_link_libraries(cool_raylib PRIVATE raylib)

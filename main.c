@@ -1,4 +1,6 @@
 #include <stdio.h>
+
+#include "LL.h"
 #include "raylib.h"
 #include "window.h"
 
@@ -27,19 +29,36 @@ int main(void)
 {
     InitWindow(800, 600, "Test window");
 
+
+    LL* windowList = LL_init();
+
+    LL_append(windowList, &test);
+    LL_append(windowList, &test2);
+
     while(!WindowShouldClose())
     {
         BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
 
-            DrawWindow(&test);
-            DrawWindow(&test2);
+
+            LLNode* windowNode = windowList->head;
+            while(windowNode != NULL)
+            {
+                Window* window = windowNode->obj;
+                DrawWindow(window);
+
+                windowNode = windowNode->next;
+            }
+
+            // DrawWindow(&test);
+            // DrawWindow(&test2);
 
         EndDrawing();
     }
 
     CloseWindow();
 
+    LL_destroy(windowList);
 
     return 0;
 }
